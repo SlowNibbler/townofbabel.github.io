@@ -55,47 +55,59 @@ Animation.prototype.isDone = function () {
     return (this.elapsedTime >= this.totalTime);
 }
 
-function Background(game) {
-    Entity.call(this, game, 0, 0);
-    this.radius = 0;
-}
-
-Background.prototype = new Entity();
-Background.prototype.constructor = Background;
-
-Background.prototype.update = function () {
-}
-
-Background.prototype.draw = function (ctx) {
-    ctx.drawImage(ASSET_MANAGER.getAsset("./img/background.png"), 0, 0);
-    Entity.prototype.draw.call(this);
-}
-
-// the "main" code begins here
+// the 'main' code begins here
 var friction = 8;
 
 var ASSET_MANAGER = new AssetManager();
 
-ASSET_MANAGER.queueDownload("./img/background.png")
-ASSET_MANAGER.queueDownload("./img/LilFrump.png");
-ASSET_MANAGER.queueDownload("./img/LilFrumpSheet.png");
-ASSET_MANAGER.queueDownload("./img/EnemyBig.png");
+ASSET_MANAGER.queueDownload('./img/Backgrounds/street1.png');
+ASSET_MANAGER.queueDownload('./img/Backgrounds/street2.jpg');
+ASSET_MANAGER.queueDownload('./img/Backgrounds/street3.jpg');
+ASSET_MANAGER.queueDownload('./img/Backgrounds/street4.jpg');
+ASSET_MANAGER.queueDownload('./img/Backgrounds/street05.jpg');
+ASSET_MANAGER.queueDownload('./img/Backgrounds/street15.jpg');
+ASSET_MANAGER.queueDownload('./img/Backgrounds/street25.jpg');
+ASSET_MANAGER.queueDownload('./img/Backgrounds/street35.jpg');
+ASSET_MANAGER.queueDownload('./img/Backgrounds/house1.jpg');
+ASSET_MANAGER.queueDownload('./img/Backgrounds/house2.jpg');
+ASSET_MANAGER.queueDownload('./img/Backgrounds/house3.jpg');
+ASSET_MANAGER.queueDownload('./img/Backgrounds/house4.jpg');
+ASSET_MANAGER.queueDownload('./img/Backgrounds/house5.jpg');
+
+ASSET_MANAGER.queueDownload('./img/Start.png');
+ASSET_MANAGER.queueDownload('./img/Victory.png');
+ASSET_MANAGER.queueDownload('./img/GameOver.png');
+ASSET_MANAGER.queueDownload('./img/LilFrump.png');
+ASSET_MANAGER.queueDownload('./img/Enemy.png');
+ASSET_MANAGER.queueDownload('./img/Health.png');
+ASSET_MANAGER.queueDownload('./img/Mailbox.png');
 
 ASSET_MANAGER.downloadAll(function () {
-    console.log("loading game...");
+    console.log('loading game...');
     var canvas = document.getElementById('gameWorld');
     var ctx = canvas.getContext('2d');
 
     var gameEngine = new GameEngine();
-    var bg = new Background(gameEngine);
+    //var bg = new Background(gameEngine);
+    var fence1 = new Wall(gameEngine, 0, 0, 240, 180);
+    var fence2 = new Wall(gameEngine, 226, 180, 14, 310);
+    var fence3 = new Wall(gameEngine, 226, 607, 14, 113);
+    var fence4 = new Wall(gameEngine, 145, 607, 81, 10);
     var frump = new Frump(gameEngine);
     //var enemy = new Enemy(gameEngine);
 
-    gameEngine.addEntity(bg);
-    var enemies = Math.floor(Math.random()*2+1);
-    for (var j = 0; j < enemies; j++) gameEngine.addEntity(new Enemy(gameEngine));
-    gameEngine.addEntity(frump);
+    // gameEngine.addEntity(street);
+    // gameEngine.addEntity(fence1);
+    // gameEngine.addEntity(fence2);
+    // gameEngine.addEntity(fence3);
+    // gameEngine.addEntity(fence4);
+    // var enemies = Math.floor(Math.random()*2+1);
+    // for (var j = 0; j < enemies; j++) gameEngine.addEntity(new Enemy(gameEngine));
+    // gameEngine.addEntity(frump);
  
+    var manager = new SceneManager(gameEngine);
+    gameEngine.addEntity(manager);
+
     gameEngine.init(ctx);
     gameEngine.start();
 });
