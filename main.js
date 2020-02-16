@@ -40,9 +40,9 @@ Animation.prototype.drawFrame = function (tick, ctx, x, y, angle, scaleBy) {
     ctx.setTransform(1, 0, 0, 1, locX, locY);
     ctx.rotate(angle);
     ctx.drawImage(this.spriteSheet,
-                  index * this.frameWidth + offset, vindex * this.frameHeight + this.startY,  // source from sheet
-                  this.frameWidth, this.frameHeight, -this.frameWidth/2, -this.frameHeight/2,
-                  this.frameWidth * scaleBy, this.frameHeight * scaleBy);
+        index * this.frameWidth + offset, vindex * this.frameHeight + this.startY,  // source from sheet
+        this.frameWidth, this.frameHeight, -this.frameWidth / 2, -this.frameHeight / 2,
+        this.frameWidth * scaleBy, this.frameHeight * scaleBy);
     ctx.rotate(angle);
     ctx.setTransform(1, 0, 0, 1, 0, 0);
 }
@@ -60,26 +60,78 @@ var friction = 8;
 
 var ASSET_MANAGER = new AssetManager();
 
-ASSET_MANAGER.queueDownload('./img/Backgrounds/street1.png');
-ASSET_MANAGER.queueDownload('./img/Backgrounds/street2.jpg');
-ASSET_MANAGER.queueDownload('./img/Backgrounds/street3.jpg');
-ASSET_MANAGER.queueDownload('./img/Backgrounds/street4.jpg');
-ASSET_MANAGER.queueDownload('./img/Backgrounds/street05.jpg');
-ASSET_MANAGER.queueDownload('./img/Backgrounds/street15.jpg');
-ASSET_MANAGER.queueDownload('./img/Backgrounds/street25.jpg');
-ASSET_MANAGER.queueDownload('./img/Backgrounds/street35.jpg');
-ASSET_MANAGER.queueDownload('./img/Backgrounds/house1.jpg');
-ASSET_MANAGER.queueDownload('./img/Backgrounds/house2.jpg');
-ASSET_MANAGER.queueDownload('./img/Backgrounds/house3.jpg');
-ASSET_MANAGER.queueDownload('./img/Backgrounds/house4.jpg');
-ASSET_MANAGER.queueDownload('./img/Backgrounds/house5.jpg');
+// menus
+ASSET_MANAGER.queueDownload('./img/menus/title_orig.png');
+ASSET_MANAGER.queueDownload('./img/menus/title.png');
+ASSET_MANAGER.queueDownload('./img/menus/start.png');
+ASSET_MANAGER.queueDownload('./img/menus/win.png');
+ASSET_MANAGER.queueDownload('./img/menus/lose.png');
 
-ASSET_MANAGER.queueDownload('./img/Start.png');
-ASSET_MANAGER.queueDownload('./img/Victory.png');
-ASSET_MANAGER.queueDownload('./img/GameOver.png');
-ASSET_MANAGER.queueDownload('./img/LilFrump.png');
-ASSET_MANAGER.queueDownload('./img/Enemy.png');
-ASSET_MANAGER.queueDownload('./img/Health.png');
+// backgrounds
+ASSET_MANAGER.queueDownload('./img/backgrounds/street00.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/street01.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/street02.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/street03.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/street04.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/street05.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/street11.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/street12.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/street13.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/street14.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/street15.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/street21.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/street22.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/street23.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/street24.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/street25.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/street31.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/street32.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/street33.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/street34.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/street35.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/house00.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/house01.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/house02.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/house03.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/house04.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/house05.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/house11.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/house12.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/house13.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/house14.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/house15.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/house21.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/house22.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/house23.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/house24.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/house25.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/house31.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/house32.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/house33.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/house34.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/house35.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/arrow.png');
+
+// entities (player + enemies)
+ASSET_MANAGER.queueDownload('./img/entities/frump.png');
+ASSET_MANAGER.queueDownload('./img/entities/health.png');
+ASSET_MANAGER.queueDownload('./img/entities/dog.png');
+ASSET_MANAGER.queueDownload('./img/entities/thug_bat.png');
+ASSET_MANAGER.queueDownload('./img/entities/thug_knife.png');
+ASSET_MANAGER.queueDownload('./img/entities/bodyguard.png');
+
+// weapons
+ASSET_MANAGER.queueDownload('./img/weapons/bat00.png');
+ASSET_MANAGER.queueDownload('./img/weapons/bat10.png');
+ASSET_MANAGER.queueDownload('./img/weapons/bat20.png');
+ASSET_MANAGER.queueDownload('./img/weapons/bat30.png');
+ASSET_MANAGER.queueDownload('./img/weapons/knife00.png');
+ASSET_MANAGER.queueDownload('./img/weapons/knife10.png');
+ASSET_MANAGER.queueDownload('./img/weapons/knife20.png');
+ASSET_MANAGER.queueDownload('./img/weapons/knife30.png');
+ASSET_MANAGER.queueDownload('./img/weapons/bullet.png');
+ASSET_MANAGER.queueDownload('./img/weapons/bullet_alt.png');
+
 ASSET_MANAGER.queueDownload('./img/Mailbox.png');
 
 ASSET_MANAGER.downloadAll(function () {
@@ -88,23 +140,6 @@ ASSET_MANAGER.downloadAll(function () {
     var ctx = canvas.getContext('2d');
 
     var gameEngine = new GameEngine();
-    //var bg = new Background(gameEngine);
-    var fence1 = new Wall(gameEngine, 0, 0, 240, 180);
-    var fence2 = new Wall(gameEngine, 226, 180, 14, 310);
-    var fence3 = new Wall(gameEngine, 226, 607, 14, 113);
-    var fence4 = new Wall(gameEngine, 145, 607, 81, 10);
-    var frump = new Frump(gameEngine);
-    //var enemy = new Enemy(gameEngine);
-
-    // gameEngine.addEntity(street);
-    // gameEngine.addEntity(fence1);
-    // gameEngine.addEntity(fence2);
-    // gameEngine.addEntity(fence3);
-    // gameEngine.addEntity(fence4);
-    // var enemies = Math.floor(Math.random()*2+1);
-    // for (var j = 0; j < enemies; j++) gameEngine.addEntity(new Enemy(gameEngine));
-    // gameEngine.addEntity(frump);
- 
     var manager = new SceneManager(gameEngine);
     gameEngine.addEntity(manager);
 
