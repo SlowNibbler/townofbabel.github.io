@@ -22,6 +22,7 @@ Enemy.prototype.update = function () {
     if (this.atkCD > 0) this.atkCD--;
     if (this.hitCD > 0) this.hitCD--;
     if (this.hitCD <= 0) this.hurt = false;
+    if (this.hurt) this.engage = true;
 
     // Update animations
     if (this.hurt && this.anim.hit.isDone()) {
@@ -86,7 +87,8 @@ Enemy.prototype.update = function () {
             if (rotationDif > Math.PI) rotationDif = (Math.PI * 2) - rotationDif;
 
             if ((distance(this, ent) < this.sight && rotationDif < this.fov)
-                || distance(this, ent) < (this.range + ent.radius + 50) || this.hurt) {
+                || distance(this, ent) < (this.range + ent.radius + 50) || this.engage) {
+                this.engage = true;
                 // Determine rotation
                 if (rotationDif < Math.PI / 32 || this.rotations.length > (this.rotationLag * 10)) {
                     for (var j = this.rotations.length - 1; j >= 0; j -= 2) {
@@ -99,7 +101,7 @@ Enemy.prototype.update = function () {
                 var difX = Math.cos(this.rotation);
                 var difY = Math.sin(this.rotation);
                 var delta = this.radius + ent.radius - distance(this, ent);
-                if (this.collide(ent)) {
+                if (this.collide(ent) && !ent.dash) {
                     this.velocity.x = -this.velocity.x * (1 / friction);
                     this.velocity.y = -this.velocity.y * (1 / friction);
                     this.x -= difX * delta / 2;
@@ -126,7 +128,7 @@ Enemy.prototype.update = function () {
                 if (this.attacking && ent.hitCD <= 0 && this.hit(ent)
                     && this.atkCD > (100 - this.hitDur) && this.atkCD <= 100) {
                     ent.hurt = true;
-                    ent.health.current--;
+                    ent.health.current -= this.dmg;
                     ent.hitCD = this.hitDur;
                 }
             }
@@ -219,9 +221,9 @@ function Dog(game) {
     // Animations
     this.anim = {};
     this.anim.idle = new Animation(ASSET_MANAGER.getAsset('./img/entities/dog.png'), 0, 0, 200, 200, 1, 1, true, false);
-    this.anim.move = new Animation(ASSET_MANAGER.getAsset('./img/entities/dog.png'), 0, 0, 200, 200, 1, 1, true, false);
-    this.anim.atk = new Animation(ASSET_MANAGER.getAsset('./img/entities/dog.png'), 0, 0, 200, 200, 0.5, 1, false, false);
-    this.anim.hit = new Animation(ASSET_MANAGER.getAsset('./img/entities/dog.png'), 0, 0, 200, 200, 0.15, 1, false, false);
+    this.anim.move = new Animation(ASSET_MANAGER.getAsset('./img/entities/dog.png'), 0, 200, 200, 200, 0.1, 6, true, false);
+    this.anim.atk = new Animation(ASSET_MANAGER.getAsset('./img/entities/dog.png'), 0, 600, 200, 200, 0.1, 5, false, false);
+    this.anim.hit = new Animation(ASSET_MANAGER.getAsset('./img/entities/dog.png'), 1000, 0, 200, 200, 0.15, 1, false, false);
 
     // Properties
     this.radius = 20;
@@ -238,6 +240,7 @@ function Dog(game) {
     this.sight = 350;
     this.fov = Math.PI * 3 / 7;
     this.health = 60;
+    this.dmg = 2;
 
     Enemy.call(this, game);
 }
@@ -258,7 +261,7 @@ function Thug(game, weapon) {
         this.begLag = 110;
         this.endLag = 45;
         this.hitDur = 14;
-        this.range = 90;
+        this.range = 85;
     }
     else {
         this.anim.idle = new Animation(ASSET_MANAGER.getAsset('./img/entities/thug_bat.png'), 0, 0, 200, 200, 0.12, 1, true, false);
@@ -281,6 +284,7 @@ function Thug(game, weapon) {
     this.sight = 250;
     this.fov = Math.PI * 2 / 5;
     this.health = 100;
+    this.dmg = 1;
 
     Enemy.call(this, game);
 }
@@ -292,9 +296,9 @@ function Bodyguard(game) {
     // Animations
     this.anim = {};
     this.anim.idle = new Animation(ASSET_MANAGER.getAsset('./img/entities/bodyguard.png'), 0, 0, 200, 200, 1, 1, true, false);
-    this.anim.move = new Animation(ASSET_MANAGER.getAsset('./img/entities/bodyguard.png'), 0, 0, 200, 200, 1, 1, true, false);
-    this.anim.atk = new Animation(ASSET_MANAGER.getAsset('./img/entities/bodyguard.png'), 0, 200, 200, 200, 0.7, 1, false, false);
-    this.anim.hit = new Animation(ASSET_MANAGER.getAsset('./img/entities/bodyguard.png'), 0, 0, 200, 200, 0.15, 1, false, false);
+    this.anim.move = new Animation(ASSET_MANAGER.getAsset('./img/entities/bodyguard.png'), 0, 0, 200, 200, 0.15, 8, true, false);
+    this.anim.atk = new Animation(ASSET_MANAGER.getAsset('./img/entities/bodyguard.png'), 0, 200, 200, 200, 0.14, 5, false, false);
+    this.anim.hit = new Animation(ASSET_MANAGER.getAsset('./img/entities/bodyguard.png'), 1400, 400, 200, 200, 0.15, 1, false, false);
 
     // Properties
     this.radius = 26;
@@ -311,6 +315,7 @@ function Bodyguard(game) {
     this.sight = 200;
     this.fov = Math.PI * 4 / 9;
     this.health = 140;
+    this.dmg = 3;
 
     Enemy.call(this, game);
 }

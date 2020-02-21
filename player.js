@@ -79,7 +79,7 @@ function Knife(game, rarity) {
     this.scale = 1;
 
     this.static = ASSET_MANAGER.getAsset('./img/weapons/knife' + rarity + '0.png');
-    this.animated = new Animation(ASSET_MANAGER.getAsset('./img/weapons/knife' + rarity + '0.png'), 100, 0, 100, 100, .3, 4, true, false);
+    this.animated = new Animation(ASSET_MANAGER.getAsset('./img/weapons/knife' + rarity + '0.png'), 100, 0, 100, 100, .4, 4, true, false);
 
     Entity.call(this, game, 640, 360);
 }
@@ -97,7 +97,7 @@ function Bat(game, rarity) {
     this.scale = 0.7;
 
     this.static = ASSET_MANAGER.getAsset('./img/weapons/bat' + rarity + '0.png');
-    this.animated = new Animation(ASSET_MANAGER.getAsset('./img/weapons/bat' + rarity + '0.png'), 100, 0, 100, 100, .3, 4, true, false);
+    this.animated = new Animation(ASSET_MANAGER.getAsset('./img/weapons/bat' + rarity + '0.png'), 100, 0, 100, 100, .4, 4, true, false);
 
     Entity.call(this, game, 640, 360);
 }
@@ -112,10 +112,11 @@ function Gun(game, rarity) {
     this.floating = true;
     this.range = 250;
     calcDmg(this);
-    this.scale = 0.5;
+    this.damage /= 2.0;
+    this.scale = 0.85;
 
-    this.static = ASSET_MANAGER.getAsset('./img/weapons/bat' + rarity + '0.png');
-    this.animated = new Animation(ASSET_MANAGER.getAsset('./img/weapons/bat' + rarity + '0.png'), 100, 0, 100, 100, .3, 4, true, false);
+    this.static = ASSET_MANAGER.getAsset('./img/weapons/gun' + rarity + '0.png');
+    this.animated = new Animation(ASSET_MANAGER.getAsset('./img/weapons/gun' + rarity + '0.png'), 100, 0, 100, 100, .4, 4, true, false);
 
     Entity.call(this, game, 640, 360);
 }
@@ -131,7 +132,7 @@ function Bullet(game, x, y, rot, dmg) {
     this.maxSpeed = 500;
     this.damage = dmg;
     this.radius = 4;
-    
+
     Entity.call(this, game, x, y);
 }
 
@@ -141,7 +142,7 @@ Bullet.prototype.constructor = Bullet;
 Bullet.prototype.update = function () {
     if (this.collideTop() || this.collideRight() || this.collideLeft() || this.collideBottom())
         this.removeFromWorld = true;
-    
+
     for (var i = 0; i < this.game.entities.length; i++) {
         var ent = this.game.entities[i];
         if (this.collide(ent)) {
@@ -186,7 +187,7 @@ function Frump(game) {
     this.anim.move = new Animation(ASSET_MANAGER.getAsset('./img/entities/frump.png'), 0, 0, 200, 200, 0.1, 8, true, false);
     this.anim.atk = new Animation(ASSET_MANAGER.getAsset('./img/entities/frump.png'), 400, 200, 200, 200, 0.15, 4, false, false);
     this.anim.hit = new Animation(ASSET_MANAGER.getAsset('./img/entities/frump.png'), 0, 1300, 200, 200, 0.1, 1, false, false);
-    this.anim.dash = new Animation(ASSET_MANAGER.getAsset('./img/entities/frump.png'), 0, 1600, 200, 200, 0.05, 5, false, false);
+    this.anim.dash = new Animation(ASSET_MANAGER.getAsset('./img/entities/frump.png'), 0, 1600, 200, 200, 0.04, 5, false, false);
     this.anim.die = new Animation(ASSET_MANAGER.getAsset('./img/entities/frump.png'), 200, 1300, 200, 300, 0.1, 5, false, false);
     this.anim.knifeIdle = new Animation(ASSET_MANAGER.getAsset('./img/entities/frump.png'), 0, 600, 200, 200, 0.4, 2, true, false);
     this.anim.knifeMove = new Animation(ASSET_MANAGER.getAsset('./img/entities/frump.png'), 0, 400, 200, 200, 0.1, 8, true, false);
@@ -203,7 +204,7 @@ function Frump(game) {
     this.sides = 38;
     this.acceleration = 100;
     this.velocity = { x: 0, y: 0 };
-    this.maxSpeed = 750;
+    this.maxSpeed = 250;
     this.weapon = new Gun(game, 0);
     this.range = 70;
     this.damage = 20;
@@ -213,7 +214,7 @@ function Frump(game) {
     this.atkCD = 0;
     this.hitCD = 0;
 
-    Entity.call(this, game, 65, 430);
+    Entity.call(this, game, 515, 470);
 }
 
 Frump.prototype = new Entity();
@@ -242,8 +243,7 @@ Frump.prototype.update = function () {
             this.anim.batAtk.elapsedTime = 0;
         }
         this.dash = true;
-        this.radius = 0;
-        this.dashCD = 100;
+        this.dashCD = 90;
         this.hitCD = 20;
         this.acceleration *= 3;
         this.maxSpeed *= 3;
@@ -255,7 +255,7 @@ Frump.prototype.update = function () {
         if (this.weapon.type == 'knife') {
             this.atkCD = 105;
             this.hitDur = 7;
-            this.range = 90;
+            this.range = 85;
         }
         else if (this.weapon.type == 'bat') {
             this.atkCD = 110;
@@ -292,8 +292,8 @@ Frump.prototype.update = function () {
     }
     else if (this.attacking) {
         if (this.weapon.type == 'gun') {
-            this.velocity.x *= 4/7;
-            this.velocity.y *= 4/7;
+            this.velocity.x *= 4 / 7;
+            this.velocity.y *= 4 / 7;
         }
 
         if (this.weapon.type == 'unarmed' && this.anim.atk.isDone()) {

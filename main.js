@@ -64,6 +64,9 @@ var ASSET_MANAGER = new AssetManager();
 ASSET_MANAGER.queueDownload('./img/menus/title_orig.png');
 ASSET_MANAGER.queueDownload('./img/menus/title.png');
 ASSET_MANAGER.queueDownload('./img/menus/start.png');
+ASSET_MANAGER.queueDownload('./img/menus/none_dif.png');
+ASSET_MANAGER.queueDownload('./img/menus/casual_dif.png');
+ASSET_MANAGER.queueDownload('./img/menus/classic_dif.png');
 ASSET_MANAGER.queueDownload('./img/menus/win.png');
 ASSET_MANAGER.queueDownload('./img/menus/lose.png');
 
@@ -129,6 +132,10 @@ ASSET_MANAGER.queueDownload('./img/weapons/knife00.png');
 ASSET_MANAGER.queueDownload('./img/weapons/knife10.png');
 ASSET_MANAGER.queueDownload('./img/weapons/knife20.png');
 ASSET_MANAGER.queueDownload('./img/weapons/knife30.png');
+ASSET_MANAGER.queueDownload('./img/weapons/gun00.png');
+ASSET_MANAGER.queueDownload('./img/weapons/gun10.png');
+ASSET_MANAGER.queueDownload('./img/weapons/gun20.png');
+ASSET_MANAGER.queueDownload('./img/weapons/gun30.png');
 ASSET_MANAGER.queueDownload('./img/weapons/bullet.png');
 ASSET_MANAGER.queueDownload('./img/weapons/bullet_alt.png');
 
