@@ -63,12 +63,15 @@ var ASSET_MANAGER = new AssetManager();
 // menus
 ASSET_MANAGER.queueDownload('./img/menus/title_orig.png');
 ASSET_MANAGER.queueDownload('./img/menus/title.png');
-ASSET_MANAGER.queueDownload('./img/menus/start.png');
 ASSET_MANAGER.queueDownload('./img/menus/none_dif.png');
 ASSET_MANAGER.queueDownload('./img/menus/casual_dif.png');
 ASSET_MANAGER.queueDownload('./img/menus/classic_dif.png');
-ASSET_MANAGER.queueDownload('./img/menus/win.png');
-ASSET_MANAGER.queueDownload('./img/menus/lose.png');
+ASSET_MANAGER.queueDownload('./img/menus/roomclear.png');
+ASSET_MANAGER.queueDownload('./img/menus/game over.png');
+ASSET_MANAGER.queueDownload('./img/menus/continued.png');
+ASSET_MANAGER.queueDownload('./img/menus/fadeblack.png');
+ASSET_MANAGER.queueDownload('./img/menus/story1.png');
+ASSET_MANAGER.queueDownload('./img/menus/story2.png');
 
 // backgrounds
 ASSET_MANAGER.queueDownload('./img/backgrounds/street00.png');
@@ -114,14 +117,24 @@ ASSET_MANAGER.queueDownload('./img/backgrounds/house33.png');
 ASSET_MANAGER.queueDownload('./img/backgrounds/house34.png');
 ASSET_MANAGER.queueDownload('./img/backgrounds/house35.png');
 ASSET_MANAGER.queueDownload('./img/backgrounds/arrow.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/roof00.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/roof01.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/roof02.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/roof03.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/roof04.png');
+ASSET_MANAGER.queueDownload('./img/backgrounds/roof05.png');
 
 // entities (player + enemies)
 ASSET_MANAGER.queueDownload('./img/entities/frump.png');
+ASSET_MANAGER.queueDownload('./img/entities/UI.png');
 ASSET_MANAGER.queueDownload('./img/entities/health.png');
+ASSET_MANAGER.queueDownload('./img/entities/health_drop.png');
+ASSET_MANAGER.queueDownload('./img/entities/dash.png');
 ASSET_MANAGER.queueDownload('./img/entities/dog.png');
 ASSET_MANAGER.queueDownload('./img/entities/thug_bat.png');
 ASSET_MANAGER.queueDownload('./img/entities/thug_knife.png');
 ASSET_MANAGER.queueDownload('./img/entities/bodyguard.png');
+ASSET_MANAGER.queueDownload('./img/entities/miniboss.png');
 
 // weapons
 ASSET_MANAGER.queueDownload('./img/weapons/bat00.png');

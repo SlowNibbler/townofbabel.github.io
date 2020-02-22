@@ -162,6 +162,20 @@ function Entity(game, x, y) {
     this.removeFromWorld = false;
 }
 
+Entity.prototype.update = function () {
+}
+
+Entity.prototype.draw = function (ctx) {
+    if (this.game.showOutlines && this.radius) {
+        this.game.ctx.beginPath();
+        this.game.ctx.strokeStyle = 'green';
+        this.game.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+        this.game.ctx.stroke();
+        this.game.ctx.closePath();
+        this.game.ctx.arc();
+    }
+}
+
 Entity.prototype.collide = function (other) {
     if (other.wall || other.door) {
         if (this.x < other.x) {
@@ -208,7 +222,8 @@ Entity.prototype.collide = function (other) {
 }
 
 Entity.prototype.collideLeft = function () {
-    return (this.x - this.radius) < 0;
+    if (this.caged) return (this.x - this.radius) < 1150;
+    else return (this.x - this.radius) < 0;
 }
 
 Entity.prototype.collideRight = function () {
@@ -220,39 +235,31 @@ Entity.prototype.collideTop = function () {
 }
 
 Entity.prototype.collideBottom = function () {
-    return (this.y + this.radius) > 720;
+    if (this.caged) return (this.y + this.radius) > 150;
+    else return (this.y + this.radius) > 720;
 }
 
-Entity.prototype.hit = function (other) {
+Entity.prototype.hit = function (other, range) {
     var acc = Math.abs(this.rotation - Math.atan2(other.y - this.y, other.x - this.x));
     if (acc > Math.PI) acc = (Math.PI * 2) - acc;
 
     var orien = Math.abs(this.rotation - other.rotation);
     if (orien > Math.PI) orien = (Math.PI * 2) - orien;
 
-    if ((distance(this, other) < 75 && acc < Math.PI / 4)
-        || (this.weapon.type == 'bat' && acc < Math.PI * 2 / 5)
-        || acc < Math.PI / 8) {
-        if (orien < Math.PI / 4 || orien > Math.PI * 3 / 4)
-            return distance(this, other) < this.range + other.faces;
+    if (range === undefined) {
+        if ((distance(this, other) < 75 && acc < Math.PI / 4)
+            || ((this.weapon.type == 'bat' || this.weapon.type == 'swing') && acc < Math.PI * 2 / 5)
+            || acc < Math.PI / 8) {
+            if (orien < Math.PI / 4 || orien > Math.PI * 3 / 4)
+                return distance(this, other) < this.range + other.faces;
+            else
+                return distance(this, other) < this.range + other.sides;
+        }
         else
-            return distance(this, other) < this.range + other.sides;
+            return false;
     }
-    else
-        return false;
-}
-
-Entity.prototype.update = function () {
-}
-
-Entity.prototype.draw = function (ctx) {
-    if (this.game.showOutlines && this.radius) {
-        this.game.ctx.beginPath();
-        this.game.ctx.strokeStyle = 'green';
-        this.game.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-        this.game.ctx.stroke();
-        this.game.ctx.closePath();
-        this.game.ctx.arc();
+    else {
+        return distance(this, other) < range;
     }
 }
 
