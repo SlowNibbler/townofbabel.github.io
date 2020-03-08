@@ -4,17 +4,23 @@
 <head>
     <meta charset="utf-8">
     <title>Town of Babel</title>
-    <script type="text/javascript" src="./gameengine.js"></script>
-    <script type="text/javascript" src="./assetmanager.js"></script>
-    <script type="text/javascript" src="./player.js"></script>
-    <script type="text/javascript" src="./enemies.js"></script>
-    <script type="text/javascript" src="./scenemanager.js"></script>
+    <script type="text/javascript" src="./game/gameengine.js"></script>
+    <script type="text/javascript" src="./game/assetmanager.js"></script>
+    <script type="text/javascript" src="./game/environments.js"></script>
+    <script type="text/javascript" src="./game/player.js"></script>
+    <script type="text/javascript" src="./game/enemies.js"></script>
+    <script type="text/javascript" src="./game/bosses.js"></script>
+    <script type="text/javascript" src="./game/abilities.js"></script>
+    <script type="text/javascript" src="./game/scenemanager.js"></script>
+    <script type="text/javascript" src="./game/levels.js"></script>
     <script type="text/javascript" src="./main.js"></script>
 </head>
 
 <body>
-    <canvas id="gameWorld" tabindex="1" width="1280" height="720"
-        style="border: 1px solid black; background: whitesmoke"></canvas>
+    <div style="text-align: center;">
+        <canvas id="gameWorld" tabindex="1" width="1280" height="720"
+            style="border: 1px solid black; background: rgb(30, 30, 30)"></canvas>
+    </div>
 </body>
 
 </html>
